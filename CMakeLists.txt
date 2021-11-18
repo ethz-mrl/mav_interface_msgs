@@ -12,26 +12,32 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 ## Generate messages in the 'msg' folder
- add_message_files(
-   FILES
-   AutopilotStatus.msg
-   Waypoint.msg
-   Path.msg   
-   FullStateStamped.msg
-   FullStateTrajectory.msg
- )
+add_message_files(
+ FILES
+ AutopilotStatus.msg
+ Waypoint.msg
+ Path.msg   
+ FullStateStamped.msg
+ FullStateTrajectory.msg
+)
+
+## Add services 
+add_service_files(
+  FILES
+  AutopilotStatusService.srv
+)
 
 ## Generate added messages
- generate_messages(
-   DEPENDENCIES
-   geometry_msgs
-   std_msgs
+generate_messages(
+ DEPENDENCIES
+ geometry_msgs
+ std_msgs
 )
 
 ## catkin specific configuration
 catkin_package(
-   INCLUDE_DIRS include ${EIGEN3_INCLUDE_DIRS}
-   CATKIN_DEPENDS geometry_msgs std_msgs message_runtime
+  INCLUDE_DIRS include ${EIGEN3_INCLUDE_DIRS}
+  CATKIN_DEPENDS geometry_msgs std_msgs message_runtime
 )
 
 
