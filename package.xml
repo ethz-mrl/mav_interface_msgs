@@ -3,6 +3,7 @@
   <name>mav_interface_msgs</name>
   <version>0.0.0</version>
   <description>Messages for interfacing with SRL MAV controllers</description>
+  <author>Dimos Tzoumanikas</author>
   <maintainer email="dt214@ic.ac.uk">Dimos Tzoumanikas</maintainer>
   <license>BSD-3-Clause</license>
 
