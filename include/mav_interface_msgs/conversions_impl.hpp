@@ -1,3 +1,10 @@
+/*
+ * SPDX-FileCopyrightText: 2020-2023 Smart Robotics Lab, Imperial College London, Technical University of Munich
+ * SPDX-FileCopyrightText: 2020-2023 Dimos Tzoumanikas
+ * SPDX-FileCopyrightText: 2022-2023 Sotiris Papatheodorou
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 #ifndef MAV_INTERFACE_MSGS_CONVERSIONS_IMPL_HPP
 #define MAV_INTERFACE_MSGS_CONVERSIONS_IMPL_HPP
 
