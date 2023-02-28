@@ -19,7 +19,7 @@ struct WaypointEigen {
   float orientationTolerance;
 
   WaypointEigen(const Eigen::Vector3d position = Eigen::Vector3d::Zero(),
-                Eigen::Quaterniond orientation = Eigen::Quaterniond(1.0, 0.0, 0.0, 0.0), float positionTolerance = 0.2,
+                const Eigen::Quaterniond& orientation = Eigen::Quaterniond(1.0, 0.0, 0.0, 0.0), float positionTolerance = 0.2,
                 float orientationTolerance = 0.25)
       : position(position), orientation(orientation.normalized()), positionTolerance(positionTolerance),
         orientationTolerance(orientationTolerance){};
@@ -40,17 +40,17 @@ struct FullStateStampedEigen {
 
   FullStateStampedEigen(const uint64_t timestampNanoSeconds = 0,
                         const Eigen::Vector3d position = Eigen::Vector3d::Zero(),
-                        Eigen::Quaterniond orientation = Eigen::Quaterniond(1.0, 0.0, 0.0, 0.0),
-                        Eigen::Vector3d linearVelocity = Eigen::Vector3d::Zero(),
-                        Eigen::Vector3d linearAcceleration = Eigen::Vector3d::Zero(),
-                        Eigen::Vector3d angularVelocity = Eigen::Vector3d::Zero())
+                        const Eigen::Quaterniond& orientation = Eigen::Quaterniond(1.0, 0.0, 0.0, 0.0),
+                        const Eigen::Vector3d& linearVelocity = Eigen::Vector3d::Zero(),
+                        const Eigen::Vector3d& linearAcceleration = Eigen::Vector3d::Zero(),
+                        const Eigen::Vector3d& angularVelocity = Eigen::Vector3d::Zero())
       : timestampNanoSeconds(timestampNanoSeconds), position(position), orientation(orientation.normalized()),
         linearVelocity(linearVelocity), linearAcceleration(linearAcceleration), angularVelocity(angularVelocity){};
 
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };
 
-inline void WaypointEigen2Msg(const WaypointEigen &waypointEigen, Waypoint &waypointMsg) {
+inline void WaypointEigen2Msg(const WaypointEigen& waypointEigen, Waypoint& waypointMsg) {
   // Copy position
   waypointMsg.position.x = waypointEigen.position(0);
   waypointMsg.position.y = waypointEigen.position(1);
@@ -67,8 +67,8 @@ inline void WaypointEigen2Msg(const WaypointEigen &waypointEigen, Waypoint &wayp
   waypointMsg.orientationTolerance = waypointEigen.orientationTolerance;
 }
 
-inline void FullStateStampedEigen2Msg(const FullStateStampedEigen &fullStateStampedEigen,
-                                      FullStateStamped &fullStateStampedMsg) {
+inline void FullStateStampedEigen2Msg(const FullStateStampedEigen& fullStateStampedEigen,
+                                      FullStateStamped& fullStateStampedMsg) {
   // Timestamp
   fullStateStampedMsg.timestampNanoSeconds = fullStateStampedEigen.timestampNanoSeconds;
 
