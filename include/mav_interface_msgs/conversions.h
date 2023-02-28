@@ -52,9 +52,9 @@ struct FullStateStampedEigen {
 
 inline void WaypointEigen2Msg(const WaypointEigen& waypointEigen, Waypoint& waypointMsg) {
   // Copy position
-  waypointMsg.position.x = waypointEigen.position(0);
-  waypointMsg.position.y = waypointEigen.position(1);
-  waypointMsg.position.z = waypointEigen.position(2);
+  waypointMsg.position.x = waypointEigen.position.x();
+  waypointMsg.position.y = waypointEigen.position.y();
+  waypointMsg.position.z = waypointEigen.position.z();
 
   // Copy orientation
   waypointMsg.orientation.w = waypointEigen.orientation.w();
@@ -73,9 +73,9 @@ inline void FullStateStampedEigen2Msg(const FullStateStampedEigen& fullStateStam
   fullStateStampedMsg.timestampNanoSeconds = fullStateStampedEigen.timestampNanoSeconds;
 
   // Copy position
-  fullStateStampedMsg.position.x = fullStateStampedEigen.position(0);
-  fullStateStampedMsg.position.y = fullStateStampedEigen.position(1);
-  fullStateStampedMsg.position.z = fullStateStampedEigen.position(2);
+  fullStateStampedMsg.position.x = fullStateStampedEigen.position.x();
+  fullStateStampedMsg.position.y = fullStateStampedEigen.position.y();
+  fullStateStampedMsg.position.z = fullStateStampedEigen.position.z();
 
   // Copy orientation
   fullStateStampedMsg.orientation.w = fullStateStampedEigen.orientation.w();
@@ -84,19 +84,19 @@ inline void FullStateStampedEigen2Msg(const FullStateStampedEigen& fullStateStam
   fullStateStampedMsg.orientation.z = fullStateStampedEigen.orientation.z();
 
   // Copy linearVelocity
-  fullStateStampedMsg.linearVelocity.x = fullStateStampedEigen.linearVelocity(0);
-  fullStateStampedMsg.linearVelocity.y = fullStateStampedEigen.linearVelocity(1);
-  fullStateStampedMsg.linearVelocity.z = fullStateStampedEigen.linearVelocity(2);
+  fullStateStampedMsg.linearVelocity.x = fullStateStampedEigen.linearVelocity.x();
+  fullStateStampedMsg.linearVelocity.y = fullStateStampedEigen.linearVelocity.y();
+  fullStateStampedMsg.linearVelocity.z = fullStateStampedEigen.linearVelocity.z();
 
   // Copy linearAcceleration
-  fullStateStampedMsg.linearAcceleration.x = fullStateStampedEigen.linearAcceleration(0);
-  fullStateStampedMsg.linearAcceleration.y = fullStateStampedEigen.linearAcceleration(1);
-  fullStateStampedMsg.linearAcceleration.z = fullStateStampedEigen.linearAcceleration(2);
+  fullStateStampedMsg.linearAcceleration.x = fullStateStampedEigen.linearAcceleration.x();
+  fullStateStampedMsg.linearAcceleration.y = fullStateStampedEigen.linearAcceleration.y();
+  fullStateStampedMsg.linearAcceleration.z = fullStateStampedEigen.linearAcceleration.z();
 
   // Copy angularVelocity
-  fullStateStampedMsg.angularVelocity.x = fullStateStampedEigen.angularVelocity(0);
-  fullStateStampedMsg.angularVelocity.y = fullStateStampedEigen.angularVelocity(1);
-  fullStateStampedMsg.angularVelocity.z = fullStateStampedEigen.angularVelocity(2);
+  fullStateStampedMsg.angularVelocity.x = fullStateStampedEigen.angularVelocity.x();
+  fullStateStampedMsg.angularVelocity.y = fullStateStampedEigen.angularVelocity.y();
+  fullStateStampedMsg.angularVelocity.z = fullStateStampedEigen.angularVelocity.z();
 }
 
 } // namespace mav_interface_msgs
