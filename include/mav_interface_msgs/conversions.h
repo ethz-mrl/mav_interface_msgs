@@ -13,8 +13,6 @@ namespace mav_interface_msgs {
 
 // Struct identical to the Waypoint msg
 struct WaypointEigen {
-  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-
   Eigen::Vector3d position;
   Eigen::Quaterniond orientation;
   float positionTolerance;
@@ -25,12 +23,12 @@ struct WaypointEigen {
                 float orientationTolerance = 0.25)
       : position(position), orientation(orientation.normalized()), positionTolerance(positionTolerance),
         orientationTolerance(orientationTolerance){};
+
+  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };
 
 // Struct identical to the Fullstate Stamped
 struct FullStateStampedEigen {
-  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-
   uint64_t timestampNanoSeconds;
   Eigen::Vector3d position;
   Eigen::Quaterniond orientation;
@@ -48,6 +46,8 @@ struct FullStateStampedEigen {
                         Eigen::Vector3d angularVelocity = Eigen::Vector3d::Zero())
       : timestampNanoSeconds(timestampNanoSeconds), position(position), orientation(orientation.normalized()),
         linearVelocity(linearVelocity), linearAcceleration(linearAcceleration), angularVelocity(angularVelocity){};
+
+  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };
 
 inline void WaypointEigen2Msg(const WaypointEigen &waypointEigen, Waypoint &waypointMsg) {
