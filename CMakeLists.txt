@@ -3,7 +3,7 @@
 
 cmake_minimum_required(VERSION 3.0.2)
 project(mav_interface_msgs
-    VERSION 0.0.0
+    VERSION 1.0.0
     DESCRIPTION "Messages for interfacing with SRL MAV controllers"
     HOMEPAGE_URL "https://github.com/smartroboticslab/mav_interface_msgs"
     LANGUAGES CXX
