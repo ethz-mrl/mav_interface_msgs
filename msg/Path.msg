@@ -1,5 +1,5 @@
 Header   header
 
-string 	   taskID   	             # String ID of the reference path.
-Waypoint[] waypoints 				 # A path is sequence of waypoints
-bool       flushReferenceQueue       # When true flushes the reference Queue.
+string     taskID               # ID of the reference path.
+Waypoint[] waypoints            # A path is a sequence of waypoints.
+bool       flushReferenceQueue  # Whether to flush the reference queue.
