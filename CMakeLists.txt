@@ -13,6 +13,7 @@ find_package(Eigen3 REQUIRED)
 find_package(catkin REQUIRED COMPONENTS
     geometry_msgs
     message_generation
+    nav_msgs
     std_msgs
 )
 
@@ -20,6 +21,7 @@ add_message_files(FILES
     AutopilotStatus.msg
     FullStateStamped.msg
     FullStateTrajectory.msg
+    OdomAndTrajectory.msg
     Path.msg
     Waypoint.msg
 )
@@ -30,12 +32,13 @@ add_service_files(FILES
 
 generate_messages(DEPENDENCIES
     geometry_msgs
+    nav_msgs
     std_msgs
 )
 
 catkin_package(
     INCLUDE_DIRS include ${EIGEN3_INCLUDE_DIRS}
-    CATKIN_DEPENDS geometry_msgs std_msgs message_runtime
+    CATKIN_DEPENDS geometry_msgs nav_msgs std_msgs message_runtime
 )
 
 install(
