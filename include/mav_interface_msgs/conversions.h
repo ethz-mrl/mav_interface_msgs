@@ -10,8 +10,8 @@
 
 #include <Eigen/Core>
 #include <Eigen/Geometry>
-#include <mav_interface_msgs/FullStateStamped.h>
 #include <mav_interface_msgs/Path.h>
+#include <mav_interface_msgs/StateStamped.h>
 #include <mav_interface_msgs/Trajectory.h>
 #include <mav_interface_msgs/Waypoint.h>
 
@@ -33,8 +33,8 @@ struct WaypointEigen {
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };
 
-// Struct identical to the Fullstate Stamped
-struct FullStateStampedEigen {
+// Struct identical to the StateStamped
+struct StateStampedEigen {
     uint64_t timestampNanoSeconds;
     Eigen::Vector3d position;
     Eigen::Quaterniond orientation;
@@ -44,7 +44,7 @@ struct FullStateStampedEigen {
 
     // ToDo ->Think how to handle inconsistend acceleration and orientation commands.
 
-    inline FullStateStampedEigen(
+    inline StateStampedEigen(
         const uint64_t timestampNanoSeconds = 0,
         const Eigen::Vector3d position = Eigen::Vector3d::Zero(),
         const Eigen::Quaterniond& orientation = Eigen::Quaterniond(1.0, 0.0, 0.0, 0.0),
@@ -57,8 +57,8 @@ struct FullStateStampedEigen {
 
 inline void WaypointEigen2Msg(const WaypointEigen& waypointEigen, Waypoint& waypointMsg);
 
-inline void FullStateStampedEigen2Msg(const FullStateStampedEigen& fullStateStampedEigen,
-                                      FullStateStamped& fullStateStampedMsg);
+inline void StateStampedEigen2Msg(const StateStampedEigen& fullStateStampedEigen,
+                                      StateStamped& fullStateStampedMsg);
 
 } // namespace mav_interface_msgs
 

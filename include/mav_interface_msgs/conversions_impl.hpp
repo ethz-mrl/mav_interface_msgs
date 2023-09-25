@@ -21,12 +21,12 @@ inline WaypointEigen::WaypointEigen(const Eigen::Vector3d position,
 {
 }
 
-inline FullStateStampedEigen::FullStateStampedEigen(const uint64_t timestampNanoSeconds,
-                                                    const Eigen::Vector3d position,
-                                                    const Eigen::Quaterniond& orientation,
-                                                    const Eigen::Vector3d& linearVelocity,
-                                                    const Eigen::Vector3d& linearAcceleration,
-                                                    const Eigen::Vector3d& angularVelocity) :
+inline StateStampedEigen::StateStampedEigen(const uint64_t timestampNanoSeconds,
+                                            const Eigen::Vector3d position,
+                                            const Eigen::Quaterniond& orientation,
+                                            const Eigen::Vector3d& linearVelocity,
+                                            const Eigen::Vector3d& linearAcceleration,
+                                            const Eigen::Vector3d& angularVelocity) :
         timestampNanoSeconds(timestampNanoSeconds),
         position(position),
         orientation(orientation.normalized()),
@@ -54,8 +54,8 @@ inline void WaypointEigen2Msg(const WaypointEigen& waypointEigen, Waypoint& wayp
     waypointMsg.orientationTolerance = waypointEigen.orientationTolerance;
 }
 
-inline void FullStateStampedEigen2Msg(const FullStateStampedEigen& fullStateStampedEigen,
-                                      FullStateStamped& fullStateStampedMsg)
+inline void StateStampedEigen2Msg(const StateStampedEigen& fullStateStampedEigen,
+                                  StateStamped& fullStateStampedMsg)
 {
     // Timestamp
     fullStateStampedMsg.timestampNanoSeconds = fullStateStampedEigen.timestampNanoSeconds;
