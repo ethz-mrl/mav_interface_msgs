@@ -19,8 +19,8 @@ find_package(catkin REQUIRED COMPONENTS
 add_message_files(FILES
     AutopilotStatus.msg
     FullStateStamped.msg
-    FullStateTrajectory.msg
     Path.msg
+    Trajectory.msg
     Waypoint.msg
 )
 
