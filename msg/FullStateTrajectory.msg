@@ -1,5 +1,6 @@
-Header header
-
+Header             header
+string             child_frame_id       # States contain poses of the child_frame_id expressed in
+                                        # the header.frame_id.
 string             taskID               # ID of the reference trajectory.
 Waypoint           initialWaypoint      # Initial waypoint, where the trajectory starts from.
 FullStateStamped[] trajectory           # A full state trajectory is a sequence of timestamped
