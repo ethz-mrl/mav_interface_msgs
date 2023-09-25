@@ -5,5 +5,5 @@ uint8 WAYPOINT = 2   # Autopilot is active, current reference is a waypoint.
 uint8 TRAJECTORY = 3 # Autopilot is active, current reference is a trajectory.
 
 Header header
-uint8  status # See possible values above.
-string taskID # ID of the active reference task.
+uint8  status  # See possible values above.
+string task_id # ID of the active reference task.
