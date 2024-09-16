@@ -1,7 +1,7 @@
-# SPDX-FileCopyrightText: 2020-2023 Smart Robotics Lab, Imperial College London, Technical University of Munich
+# SPDX-FileCopyrightText: 2020-2024 Smart Robotics Lab, Imperial College London, Technical University of Munich
 # SPDX-License-Identifier: CC0-1.0
 
-cmake_minimum_required(VERSION 3.0.2)
+cmake_minimum_required(VERSION 3.0..3.16 FATAL_ERROR)
 project(mav_interface_msgs
     VERSION 1.0.0
     DESCRIPTION "Messages for interfacing with SRL MAV controllers"
@@ -9,14 +9,17 @@ project(mav_interface_msgs
     LANGUAGES CXX
 )
 
+# Find package dependencies.
 find_package(Eigen3 REQUIRED)
 find_package(catkin REQUIRED COMPONENTS
-    geometry_msgs
     message_generation
+    roscpp
+    geometry_msgs
     nav_msgs
     std_msgs
 )
 
+# Generate messages. Must be before the call to catkin_package().
 add_message_files(FILES
     AutopilotStatus.msg
     FullStateStamped.msg
@@ -36,13 +39,17 @@ generate_messages(DEPENDENCIES
     std_msgs
 )
 
+# Create the package.
 catkin_package(
-    INCLUDE_DIRS include ${EIGEN3_INCLUDE_DIRS}
-    CATKIN_DEPENDS geometry_msgs nav_msgs std_msgs message_runtime
+    CATKIN_DEPENDS
+        geometry_msgs
+        nav_msgs
+        std_msgs
+        message_runtime
+    DEPENDS # Names must be the prefixes of the *_INCLUDE_DIRS and *_LIBRARIES variables.
+        EIGEN3
+    INCLUDE_DIRS
+        include
 )
 
-install(
-    DIRECTORY include/${PROJECT_NAME}/
-    DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-    FILES_MATCHING PATTERN "*.h"
-)
+install(DIRECTORY include/${PROJECT_NAME} DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})

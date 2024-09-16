@@ -4,14 +4,17 @@
   <version>1.0.0</version>
   <description>Messages for interfacing with SRL MAV controllers</description>
   <author>Dimos Tzoumanikas</author>
-  <maintainer email="dt214@ic.ac.uk">Dimos Tzoumanikas</maintainer>
+  <maintainer email="info@srl.in.tum.de">Smart Robotics Lab</maintainer>
   <license>BSD-3-Clause</license>
 
-  <!-- ROS msgs related dependencies -->
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>message_generation</build_depend>
+  <depend>roscpp</depend>
   <depend>geometry_msgs</depend>
   <depend>nav_msgs</depend>
   <depend>std_msgs</depend>
   <exec_depend>message_runtime</exec_depend>
 </package>
+<!-- ROS doesn't like comments at the beginning of package.xml. -->
+<!-- SPDX-FileCopyrightText: 2020-2024 Smart Robotics Lab, Imperial College London, Technical University of Munich -->
+<!-- SPDX-License-Identifier: CC0-1.0 -->
