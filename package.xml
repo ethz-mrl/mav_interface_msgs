@@ -13,6 +13,7 @@
   <depend>geometry_msgs</depend>
   <depend>nav_msgs</depend>
   <depend>std_msgs</depend>
+  <depend>tf</depend>
   <exec_depend>message_runtime</exec_depend>
 </package>
 <!-- ROS doesn't like comments at the beginning of package.xml. -->

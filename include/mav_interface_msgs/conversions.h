@@ -60,6 +60,11 @@ inline void WaypointEigen2Msg(const WaypointEigen& waypointEigen, Waypoint& wayp
 inline void FullStateStampedEigen2Msg(const FullStateStampedEigen& fullStateStampedEigen,
                                       FullStateStamped& fullStateStampedMsg);
 
+/** Return a resampled version of \p trajectory so that the positions of consecutive states are at
+ * most \p max_distance apart.
+ */
+FullStateTrajectory resample_trajectory(const FullStateTrajectory& trajectory, const double max_distance);
+
 } // namespace mav_interface_msgs
 
 #include "conversions_impl.hpp"
