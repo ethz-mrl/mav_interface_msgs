@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2020-2024 Smart Robotics Lab, Imperial College London, Technical University of Munich
 # SPDX-License-Identifier: CC0-1.0
 
-cmake_minimum_required(VERSION 3.5.2)
+cmake_minimum_required(VERSION 3.8)
 project(mav_interface_msgs
     VERSION 2.0.0
     DESCRIPTION "Messages for interfacing with SRL MAV controllers"
