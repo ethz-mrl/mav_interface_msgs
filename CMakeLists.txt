@@ -1,68 +1,70 @@
 # SPDX-FileCopyrightText: 2020-2024 Smart Robotics Lab, Imperial College London, Technical University of Munich
 # SPDX-License-Identifier: CC0-1.0
-cmake_minimum_required(VERSION 3.0..3.16 FATAL_ERROR)
+
+cmake_minimum_required(VERSION 3.5.2)
 project(mav_interface_msgs
-    VERSION 1.0.0
+    VERSION 2.0.0
     DESCRIPTION "Messages for interfacing with SRL MAV controllers"
     HOMEPAGE_URL "https://github.com/smartroboticslab/mav_interface_msgs"
     LANGUAGES CXX
 )
 
-# Find package dependencies.
+find_package(ament_cmake REQUIRED)
 find_package(Eigen3 REQUIRED)
-find_package(catkin REQUIRED COMPONENTS
-    message_generation
-    roscpp
+find_package(geometry_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+
+include_directories(${Eigen3_INCLUDE_DIRS})
+
+add_library(${PROJECT_NAME} INTERFACE)
+target_include_directories(${PROJECT_NAME}
+  INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>)
+target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_11)
+target_compile_options(${PROJECT_NAME} INTERFACE -Wall -Wextra -Wpedantic)
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+    "msg/AutopilotStatus.msg"
+    "msg/FullStateStamped.msg"
+    "msg/FullStateTrajectory.msg"
+    "msg/OdomAndTrajectory.msg"
+    "msg/Path.msg"
+    "msg/Waypoint.msg"
+    "srv/AutopilotStatusService.srv"
+    DEPENDENCIES
     geometry_msgs
     nav_msgs
     std_msgs
     tf
 )
 
-# Generate messages. Must be before the call to catkin_package().
-add_message_files(FILES
-    AutopilotStatus.msg
-    FullStateStamped.msg
-    FullStateTrajectory.msg
-    OdomAndTrajectory.msg
-    Path.msg
-    Waypoint.msg
-)
-
-add_service_files(FILES
-    AutopilotStatusService.srv
-)
-
-generate_messages(DEPENDENCIES
+# # TARGET DEPENDENCIES
+AMENT_TARGET_DEPENDENCIES(
+    ament_cmake
+    eigen3_cmake_module
+    Eigen3
     geometry_msgs
     nav_msgs
     std_msgs
     tf
 )
 
-# Create the package.
-catkin_package(
-    CATKIN_DEPENDS
-        geometry_msgs
-        nav_msgs
-        std_msgs
-        message_runtime
-    DEPENDS # Names must be the prefixes of the *_INCLUDE_DIRS and *_LIBRARIES variables.
-        EIGEN3
-    INCLUDE_DIRS
-        include
-    LIBRARIES
-        ${PROJECT_NAME}
+# EXPORT DEPENDENCIES
+AMENT_EXPORT_DEPENDENCIES(
+    ament_cmake
+    rosidl_default_runtime
+    eigen3_cmake_module
+    Eigen3
+    nav_msgs
+    geometry_msgs
+    std_msgs
 )
 
-add_library(${PROJECT_NAME} STATIC src/conversions.cpp)
-target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_11)
-target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic)
-target_include_directories(${PROJECT_NAME} PUBLIC include ${catkin_INCLUDE_DIRS})
-target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} Eigen3::Eigen) # TODO: why is Eigen needed here?
+ament_export_targets(${PROJECT_NAME} HAS_LIBRARY_TARGET)
+ament_export_include_directories(include)
+ament_export_libraries(${PROJECT_NAME})
 
-install(TARGETS ${PROJECT_NAME}
-    ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-    LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-    RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION})
-install(DIRECTORY include/${PROJECT_NAME} DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
+ament_package()
