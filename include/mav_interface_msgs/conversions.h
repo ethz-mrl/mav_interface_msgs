@@ -10,10 +10,10 @@
 
 #include <Eigen/Core>
 #include <Eigen/Geometry>
-#include <mav_interface_msgs/FullStateStamped.h>
-#include <mav_interface_msgs/FullStateTrajectory.h>
-#include <mav_interface_msgs/Path.h>
-#include <mav_interface_msgs/Waypoint.h>
+#include <mav_interface_msgs/msg/FullStateStamped.h>
+#include <mav_interface_msgs/msg/FullStateTrajectory.h>
+#include <mav_interface_msgs/msg/Path.h>
+#include <mav_interface_msgs/msg/Waypoint.h>
 
 namespace mav_interface_msgs {
 
