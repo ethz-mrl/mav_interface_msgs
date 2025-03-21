@@ -1,7 +1,7 @@
 # taskType enum values
-#uint8  idle = 0        # Autopilot is active, reference queue is empty.
-#uint8  Waypoint = 1    # Autopilot is active, current reference is a waypoint.
-#uint8  Trajectory = 2  # Autopilot is active, current reference is a trajectory.
+uint8  IDLE = 0        # Autopilot is active, reference queue is empty.
+uint8  WAYPOINT = 1    # Autopilot is active, current reference is a waypoint.
+uint8  TRAJECTORY = 2  # Autopilot is active, current reference is a trajectory.
 
 std_msgs/Header header
 
