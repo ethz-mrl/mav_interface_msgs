@@ -18,14 +18,6 @@ find_package(rosidl_default_generators REQUIRED)
 
 include_directories(${Eigen3_INCLUDE_DIRS})
 
-add_library(${PROJECT_NAME} INTERFACE)
-target_include_directories(${PROJECT_NAME}
-  INTERFACE
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<INSTALL_INTERFACE:include>)
-target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_11)
-target_compile_options(${PROJECT_NAME} INTERFACE -Wall -Wextra -Wpedantic)
-
 rosidl_generate_interfaces(${PROJECT_NAME}
     "msg/AutopilotStatus.msg"
     "msg/FullStateStamped.msg"
@@ -41,30 +33,19 @@ rosidl_generate_interfaces(${PROJECT_NAME}
     tf
 )
 
-# # TARGET DEPENDENCIES
-AMENT_TARGET_DEPENDENCIES(
-    ament_cmake
-    eigen3_cmake_module
-    Eigen3
-    geometry_msgs
-    nav_msgs
-    std_msgs
-    tf
-)
-
-# EXPORT DEPENDENCIES
-AMENT_EXPORT_DEPENDENCIES(
-    ament_cmake
-    rosidl_default_runtime
-    eigen3_cmake_module
-    Eigen3
-    nav_msgs
-    geometry_msgs
-    std_msgs
-)
-
 ament_export_targets(${PROJECT_NAME} HAS_LIBRARY_TARGET)
 ament_export_include_directories(include)
 ament_export_libraries(${PROJECT_NAME})
+
+if(BUILD_TESTING)
+  find_package(ament_lint_auto REQUIRED)
+  # the following line skips the linter which checks for copyrights
+  # uncomment the line when a copyright and license is not present in all source files
+  #set(ament_cmake_copyright_FOUND TRUE)
+  # the following line skips cpplint (only works in a git repo)
+  # uncomment the line when this package is not in a git repo
+  #set(ament_cmake_cpplint_FOUND TRUE)
+  ament_lint_auto_find_test_dependencies()
+endif()
 
 ament_package()
