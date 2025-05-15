@@ -16,8 +16,6 @@ find_package(nav_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
-include_directories(${Eigen3_INCLUDE_DIRS})
-
 rosidl_generate_interfaces(${PROJECT_NAME}
     "msg/AutopilotStatus.msg"
     "msg/FullStateStamped.msg"
@@ -33,9 +31,9 @@ rosidl_generate_interfaces(${PROJECT_NAME}
     tf
 )
 
-ament_export_targets(${PROJECT_NAME} HAS_LIBRARY_TARGET)
-ament_export_include_directories(include)
-ament_export_libraries(${PROJECT_NAME})
+ament_export_dependencies(rosidl_default_runtime)
+# ament_export_include_directories(include)
+# ament_export_libraries(${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
