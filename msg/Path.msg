@@ -1,5 +1,5 @@
-Header   header
+std_msgs/Header   header
 
-string     taskID               # ID of the reference path.
+string     task_id               # ID of the reference path.
 Waypoint[] waypoints            # A path is a sequence of waypoints.
-bool       flushReferenceQueue  # Whether to flush the reference queue.
+bool       flush_reference_queue  # Whether to flush the reference queue.

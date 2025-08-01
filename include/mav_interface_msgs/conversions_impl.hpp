@@ -12,31 +12,31 @@ namespace mav_interface_msgs {
 
 inline WaypointEigen::WaypointEigen(const Eigen::Vector3d position,
                                     const Eigen::Quaterniond& orientation,
-                                    float positionTolerance,
-                                    float orientationTolerance) :
+                                    float position_tolerance,
+                                    float orientation_tolerance) :
         position(position),
         orientation(orientation.normalized()),
-        positionTolerance(positionTolerance),
-        orientationTolerance(orientationTolerance)
+        position_tolerance(position_tolerance),
+        orientation_tolerance(orientation_tolerance)
 {
 }
 
-inline FullStateStampedEigen::FullStateStampedEigen(const uint64_t timestampNanoSeconds,
+inline FullStateStampedEigen::FullStateStampedEigen(const uint64_t timestamp_nano_seconds,
                                                     const Eigen::Vector3d position,
                                                     const Eigen::Quaterniond& orientation,
-                                                    const Eigen::Vector3d& linearVelocity,
-                                                    const Eigen::Vector3d& linearAcceleration,
-                                                    const Eigen::Vector3d& angularVelocity) :
-        timestampNanoSeconds(timestampNanoSeconds),
+                                                    const Eigen::Vector3d& linear_velocity,
+                                                    const Eigen::Vector3d& linear_acceleration,
+                                                    const Eigen::Vector3d& angular_velocity) :
+        timestamp_nano_seconds(timestamp_nano_seconds),
         position(position),
         orientation(orientation.normalized()),
-        linearVelocity(linearVelocity),
-        linearAcceleration(linearAcceleration),
-        angularVelocity(angularVelocity)
+        linear_velocity(linear_velocity),
+        linear_acceleration(linear_acceleration),
+        angular_velocity(angular_velocity)
 {
 }
 
-inline void WaypointEigen2Msg(const WaypointEigen& waypointEigen, Waypoint& waypointMsg)
+inline void WaypointEigen2Msg(const WaypointEigen& waypointEigen, mav_interface_msgs::msg::Waypoint& waypointMsg)
 {
     // Copy position
     waypointMsg.position.x = waypointEigen.position.x();
@@ -50,15 +50,15 @@ inline void WaypointEigen2Msg(const WaypointEigen& waypointEigen, Waypoint& wayp
     waypointMsg.orientation.z = waypointEigen.orientation.z();
 
     // Copy position and orientation tolerance
-    waypointMsg.positionTolerance = waypointEigen.positionTolerance;
-    waypointMsg.orientationTolerance = waypointEigen.orientationTolerance;
+    waypointMsg.position_tolerance = waypointEigen.position_tolerance;
+    waypointMsg.orientation_tolerance = waypointEigen.orientation_tolerance;
 }
 
 inline void FullStateStampedEigen2Msg(const FullStateStampedEigen& fullStateStampedEigen,
-                                      FullStateStamped& fullStateStampedMsg)
+                                      mav_interface_msgs::msg::FullStateStamped& fullStateStampedMsg)
 {
     // Timestamp
-    fullStateStampedMsg.timestampNanoSeconds = fullStateStampedEigen.timestampNanoSeconds;
+    fullStateStampedMsg.timestamp_nano_seconds = fullStateStampedEigen.timestamp_nano_seconds;
 
     // Copy position
     fullStateStampedMsg.position.x = fullStateStampedEigen.position.x();
@@ -71,20 +71,20 @@ inline void FullStateStampedEigen2Msg(const FullStateStampedEigen& fullStateStam
     fullStateStampedMsg.orientation.y = fullStateStampedEigen.orientation.y();
     fullStateStampedMsg.orientation.z = fullStateStampedEigen.orientation.z();
 
-    // Copy linearVelocity
-    fullStateStampedMsg.linearVelocity.x = fullStateStampedEigen.linearVelocity.x();
-    fullStateStampedMsg.linearVelocity.y = fullStateStampedEigen.linearVelocity.y();
-    fullStateStampedMsg.linearVelocity.z = fullStateStampedEigen.linearVelocity.z();
+    // Copy linear_velocity
+    fullStateStampedMsg.linear_velocity.x = fullStateStampedEigen.linear_velocity.x();
+    fullStateStampedMsg.linear_velocity.y = fullStateStampedEigen.linear_velocity.y();
+    fullStateStampedMsg.linear_velocity.z = fullStateStampedEigen.linear_velocity.z();
 
-    // Copy linearAcceleration
-    fullStateStampedMsg.linearAcceleration.x = fullStateStampedEigen.linearAcceleration.x();
-    fullStateStampedMsg.linearAcceleration.y = fullStateStampedEigen.linearAcceleration.y();
-    fullStateStampedMsg.linearAcceleration.z = fullStateStampedEigen.linearAcceleration.z();
+    // Copy linear_acceleration
+    fullStateStampedMsg.linear_acceleration.x = fullStateStampedEigen.linear_acceleration.x();
+    fullStateStampedMsg.linear_acceleration.y = fullStateStampedEigen.linear_acceleration.y();
+    fullStateStampedMsg.linear_acceleration.z = fullStateStampedEigen.linear_acceleration.z();
 
-    // Copy angularVelocity
-    fullStateStampedMsg.angularVelocity.x = fullStateStampedEigen.angularVelocity.x();
-    fullStateStampedMsg.angularVelocity.y = fullStateStampedEigen.angularVelocity.y();
-    fullStateStampedMsg.angularVelocity.z = fullStateStampedEigen.angularVelocity.z();
+    // Copy angular_velocity
+    fullStateStampedMsg.angular_velocity.x = fullStateStampedEigen.angular_velocity.x();
+    fullStateStampedMsg.angular_velocity.y = fullStateStampedEigen.angular_velocity.y();
+    fullStateStampedMsg.angular_velocity.z = fullStateStampedEigen.angular_velocity.z();
 }
 
 } // namespace mav_interface_msgs

@@ -7,5 +7,5 @@
 
 geometry_msgs/Vector3    position              # Position of the body frame expressed in the world frame r_WB in [m].
 geometry_msgs/Quaternion orientation           # Orientation of the body frame expressed in the world frame q_WB.
-float64                  positionTolerance     # Position tolerance in [m].
-float64                  orientationTolerance  # Orientation tolerance in [rad].
+float64                  position_tolerance     # Position tolerance in [m].
+float64                  orientation_tolerance  # Orientation tolerance in [rad].

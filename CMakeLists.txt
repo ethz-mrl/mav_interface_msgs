@@ -1,68 +1,84 @@
 # SPDX-FileCopyrightText: 2020-2024 Smart Robotics Lab, Imperial College London, Technical University of Munich
 # SPDX-License-Identifier: CC0-1.0
-cmake_minimum_required(VERSION 3.0..3.16 FATAL_ERROR)
+
+cmake_minimum_required(VERSION 3.8)
 project(mav_interface_msgs
-    VERSION 1.0.0
+    VERSION 2.0.0
     DESCRIPTION "Messages for interfacing with SRL MAV controllers"
     HOMEPAGE_URL "https://github.com/smartroboticslab/mav_interface_msgs"
-    LANGUAGES CXX
+    LANGUAGES C CXX
 )
 
-# Find package dependencies.
+find_package(ament_cmake REQUIRED)
 find_package(Eigen3 REQUIRED)
-find_package(catkin REQUIRED COMPONENTS
-    message_generation
-    roscpp
+find_package(geometry_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+
+set(msg_files
+    "msg/AutopilotStatus.msg"
+    "msg/FullStateStamped.msg"
+    "msg/FullStateTrajectory.msg"
+    "msg/OdomAndTrajectory.msg"
+    "msg/Path.msg"
+    "msg/Waypoint.msg"
+    "srv/AutopilotStatusService.srv"
+    )
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+    ${msg_files}
+    DEPENDENCIES
     geometry_msgs
     nav_msgs
     std_msgs
-    tf
 )
 
-# Generate messages. Must be before the call to catkin_package().
-add_message_files(FILES
-    AutopilotStatus.msg
-    FullStateStamped.msg
-    FullStateTrajectory.msg
-    OdomAndTrajectory.msg
-    Path.msg
-    Waypoint.msg
+ament_export_dependencies(rosidl_default_runtime)
+
+if(BUILD_TESTING)
+  find_package(ament_lint_auto REQUIRED)
+  # the following line skips the linter which checks for copyrights
+  # uncomment the line when a copyright and license is not present in all source files
+  #set(ament_cmake_copyright_FOUND TRUE)
+  # the following line skips cpplint (only works in a git repo)
+  # uncomment the line when this package is not in a git repo
+  #set(ament_cmake_cpplint_FOUND TRUE)
+  ament_lint_auto_find_test_dependencies()
+endif()
+
+
+add_library(${PROJECT_NAME}_cpp STATIC src/conversions.cpp)
+target_compile_features(${PROJECT_NAME}_cpp PUBLIC cxx_std_17)
+target_compile_options(${PROJECT_NAME}_cpp PRIVATE -Wall -Wextra -Wpedantic)
+target_include_directories(${PROJECT_NAME}_cpp PUBLIC 
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+)
+target_link_libraries(${PROJECT_NAME}_cpp Eigen3::Eigen)
+
+# Link against the generated interfaces
+rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME} rosidl_typesupport_cpp)
+target_link_libraries(${PROJECT_NAME}_cpp "${cpp_typesupport_target}")
+
+ament_target_dependencies(${PROJECT_NAME}_cpp 
+  geometry_msgs
+  nav_msgs
+  std_msgs
 )
 
-add_service_files(FILES
-    AutopilotStatusService.srv
+install(TARGETS ${PROJECT_NAME}_cpp
+  EXPORT export_${PROJECT_NAME}
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION bin
 )
 
-generate_messages(DEPENDENCIES
-    geometry_msgs
-    nav_msgs
-    std_msgs
-    tf
+install(DIRECTORY include/
+  DESTINATION include
 )
 
-# Create the package.
-catkin_package(
-    CATKIN_DEPENDS
-        geometry_msgs
-        nav_msgs
-        std_msgs
-        message_runtime
-    DEPENDS # Names must be the prefixes of the *_INCLUDE_DIRS and *_LIBRARIES variables.
-        EIGEN3
-    INCLUDE_DIRS
-        include
-    LIBRARIES
-        ${PROJECT_NAME}
-)
+ament_export_targets(export_${PROJECT_NAME} HAS_LIBRARY_TARGET)
+ament_export_dependencies(geometry_msgs nav_msgs std_msgs)
 
-add_library(${PROJECT_NAME} STATIC src/conversions.cpp)
-target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_11)
-target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic)
-target_include_directories(${PROJECT_NAME} PUBLIC include ${catkin_INCLUDE_DIRS})
-target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} Eigen3::Eigen) # TODO: why is Eigen needed here?
-
-install(TARGETS ${PROJECT_NAME}
-    ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-    LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-    RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION})
-install(DIRECTORY include/${PROJECT_NAME} DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
+ament_package()

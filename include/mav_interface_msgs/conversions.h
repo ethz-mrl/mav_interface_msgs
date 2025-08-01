@@ -10,10 +10,10 @@
 
 #include <Eigen/Core>
 #include <Eigen/Geometry>
-#include <mav_interface_msgs/FullStateStamped.h>
-#include <mav_interface_msgs/FullStateTrajectory.h>
-#include <mav_interface_msgs/Path.h>
-#include <mav_interface_msgs/Waypoint.h>
+#include <mav_interface_msgs/msg/full_state_stamped.hpp>
+#include <mav_interface_msgs/msg/full_state_trajectory.hpp>
+#include <mav_interface_msgs/msg/path.hpp>
+#include <mav_interface_msgs/msg/waypoint.hpp>
 
 namespace mav_interface_msgs {
 
@@ -21,49 +21,49 @@ namespace mav_interface_msgs {
 struct WaypointEigen {
     Eigen::Vector3d position;
     Eigen::Quaterniond orientation;
-    float positionTolerance;
-    float orientationTolerance;
+    float position_tolerance;
+    float orientation_tolerance;
 
     inline WaypointEigen(
         const Eigen::Vector3d position = Eigen::Vector3d::Zero(),
         const Eigen::Quaterniond& orientation = Eigen::Quaterniond(1.0, 0.0, 0.0, 0.0),
-        float positionTolerance = 0.2,
-        float orientationTolerance = 0.25);
+        float position_tolerance = 0.2,
+        float orientation_tolerance = 0.25);
 
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };
 
 // Struct identical to the Fullstate Stamped
 struct FullStateStampedEigen {
-    uint64_t timestampNanoSeconds;
+    uint64_t timestamp_nano_seconds;
     Eigen::Vector3d position;
     Eigen::Quaterniond orientation;
-    Eigen::Vector3d linearVelocity;
-    Eigen::Vector3d linearAcceleration;
-    Eigen::Vector3d angularVelocity;
+    Eigen::Vector3d linear_velocity;
+    Eigen::Vector3d linear_acceleration;
+    Eigen::Vector3d angular_velocity;
 
     // ToDo ->Think how to handle inconsistend acceleration and orientation commands.
 
     inline FullStateStampedEigen(
-        const uint64_t timestampNanoSeconds = 0,
+        const uint64_t timestamp_nano_seconds = 0,
         const Eigen::Vector3d position = Eigen::Vector3d::Zero(),
         const Eigen::Quaterniond& orientation = Eigen::Quaterniond(1.0, 0.0, 0.0, 0.0),
-        const Eigen::Vector3d& linearVelocity = Eigen::Vector3d::Zero(),
-        const Eigen::Vector3d& linearAcceleration = Eigen::Vector3d::Zero(),
-        const Eigen::Vector3d& angularVelocity = Eigen::Vector3d::Zero());
+        const Eigen::Vector3d& linear_velocity = Eigen::Vector3d::Zero(),
+        const Eigen::Vector3d& linear_acceleration = Eigen::Vector3d::Zero(),
+        const Eigen::Vector3d& angular_velocity = Eigen::Vector3d::Zero());
 
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };
 
-inline void WaypointEigen2Msg(const WaypointEigen& waypointEigen, Waypoint& waypointMsg);
+inline void WaypointEigen2Msg(const WaypointEigen& waypointEigen, mav_interface_msgs::msg::Waypoint& waypointMsg);
 
 inline void FullStateStampedEigen2Msg(const FullStateStampedEigen& fullStateStampedEigen,
-                                      FullStateStamped& fullStateStampedMsg);
+                                      mav_interface_msgs::msg::FullStateStamped& fullStateStampedMsg);
 
 /** Return a resampled version of \p trajectory so that the positions of consecutive states are at
  * most \p max_distance apart.
  */
-FullStateTrajectory resample_trajectory(const FullStateTrajectory& trajectory, const double max_distance);
+mav_interface_msgs::msg::FullStateTrajectory resample_trajectory(const mav_interface_msgs::msg::FullStateTrajectory& trajectory, const double max_distance);
 
 } // namespace mav_interface_msgs
 
